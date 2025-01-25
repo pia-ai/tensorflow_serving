@@ -12,3 +12,5 @@ node_modules
 /third_party/py/numpy/numpy_include
 /util/python/python_include
 /util/python/python_lib
+tf_serving_package*
+libtensorflow_serving.a

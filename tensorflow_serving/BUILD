@@ -10,6 +10,15 @@ exports_files(["LICENSE"])
 
 # open source marker; do not remove
 
+cc_binary(
+    name = "libtensorflow_serving.so",
+    deps = [
+        "//tensorflow_serving/model_servers:server_lib",
+    ],
+    linkstatic=1,
+    linkshared=1,
+)
+
 package_group(
     name = "internal",
     packages = [

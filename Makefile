@@ -14,6 +14,11 @@ cpu:
 	cd $(CURDIR)/tensorflow_serving && find . -name "*.h" -exec cp --parents {} ${PREFIX}/include/tensorflow_serving \;
 	mkdir -p  ${PREFIX}/include/re2 && cd $(CURDIR)/bazel-serving/external/com_googlesource_code_re2/re2 && find . -name "*.h" -exec cp --parents {} ${PREFIX}/include/re2 \;
 	cd $(CURDIR)/bazel-serving/external/jsoncpp_git/include && cp -rf json ${PREFIX}/include/
+	mkdir -p ${PREFIX}/include/absl && cd $(CURDIR)/bazel-serving/external/com_google_absl/absl && find . \( -name "*.h" -o -name "*.inc" \) -exec cp --parents {} ${PREFIX}/include/absl \;
+
+
+	bazel build ${BAZEL_OPT} //tensorflow_serving:install_eigen_headers
+	cp -fr $(CURDIR)/bazel-bin/tensorflow_serving/include/* ${PREFIX}/include/
 
 	rm -fr tf_serving_package_cpu.tar.gz
 	cd $(CURDIR) && tar -zcf tf_serving_package_cpu.tar.gz tf_serving_package
@@ -30,6 +35,10 @@ gpu:
 	cd $(CURDIR)/tensorflow_serving && find . -name "*.h" -exec cp --parents {} ${PREFIX}/include/tensorflow_serving \;
 	mkdir -p  ${PREFIX}/include/re2 && cd $(CURDIR)/bazel-serving/external/com_googlesource_code_re2/re2 && find . -name "*.h" -exec cp --parents {} ${PREFIX}/include/re2 \;
 	cd $(CURDIR)/bazel-serving/external/jsoncpp_git/include && cp -rf json ${PREFIX}/include/
+	mkdir -p ${PREFIX}/include/absl && cd $(CURDIR)/bazel-serving/external/com_google_absl/absl && find . \( -name "*.h" -o -name "*.inc" \) -exec cp --parents {} ${PREFIX}/include/absl \;
 
+	bazel build ${BAZEL_OPT} //tensorflow_serving:install_eigen_headers
+	cp -fr $(CURDIR)/bazel-bin/tensorflow_serving/include/* ${PREFIX}/include/
+	
 	rm -fr tf_serving_package_gpu.tar.gz
 	cd $(CURDIR) && tar -zcf tf_serving_package_gpu.tar.gz tf_serving_package

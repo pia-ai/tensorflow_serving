@@ -14,3 +14,4 @@ node_modules
 /util/python/python_lib
 tf_serving_package*
 libtensorflow_serving.a
+out.log
